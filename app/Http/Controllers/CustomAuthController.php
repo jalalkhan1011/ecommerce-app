@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class CustomAuthController extends Controller
 {
+    public function index()
+    {
+        return view('welcome');
+    }
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -17,7 +22,7 @@ class CustomAuthController extends Controller
 
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->away('http://-foodpanda-app.test:83/public/sso-login');
+            return redirect()->away('http://-foodpanda-app.test:83/public/sso-login?email=' . $request->email);
         }
 
         return back()->withErrors([
